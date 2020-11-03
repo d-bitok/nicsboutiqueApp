@@ -1,0 +1,207 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content=""> {% if title %}
+    <title>Nics Boutique - {{ title }} </title>
+    {% else %}
+    <title>Nics Boutique</title>
+    {% endif %}
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Bootstrap core CSS -->
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'boutiqueApp/css/offcanvas.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'boutiqueApp/css/store.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'boutiqueApp/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'boutiqueApp/css/album.css' %}" type="text/css">
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <a class="navbar-brand mr-auto mr-lg-0" style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder;" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">shopping_basket</i>Nics Boutique</a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+    <span><i class="material-icons large right">menu</i></span>
+  </button>
+
+        <div class="navbar-collapse container offcanvas-collapse py-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">home</i><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">store</i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'Boutique-About' %}"><i class="material-icons large right">bubble_chart</i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">local_mall</i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="material-icons large right">account_balance_wallet</i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="material-icons large right">local_taxi</i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="material-icons large right">widgets</i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="material-icons large right">tune</i></a>
+                </li>
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons large right">more_vert</i></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#"><i class="material-icons large right">hotel</i>Hotels</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons large right">local_taxi</i>Taxi</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons large right">local_mall</i>Malls</a>
+                        <a class="dropdown-item" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">developer_board</i>NEWorld Tech.</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="navbar-nav">
+
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link active" href="{% url 'Post-Create' %}">New Post</a>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <a class="btn-blank btn-sm btn-outline-secondary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
+                </form>
+                <a class="nav-link active" href="{% url 'Boutique-Home' %}"><span class="badge badge-pill bg-light float-right align-text-top">2</span><i class="material-icons large right">shopping_cart</i></a>
+                <a class="nav-item nav-link active" href="{% url 'Profile' %}"> {{ user.username }} </a>
+                <a class="nav-item nav-link active" href="{% url 'Logout' %}">Logout</a> {% else %}
+                <a class="nav-item nav-link active" href="{% url 'Login' %}">Login</a>
+                <a class="nav-item nav-link active" href="{% url 'Register' %}">Register</a> {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="nav-scroller bg-white shadow-sm pt-0">
+        <nav class="nav nav-underline">
+            <a class="nav-link active" href="#"><a class="nav-link" href="#"><i class="material-icons large right">style</i>Style</a>
+            <a class="nav-link" href="#"><a class="nav-link" href="#"><i class="material-icons large right">supervisor_account</i>Friends
+            <span class="badge badge-pill bg-light float-right align-text-bottom">27</span>
+            </a>
+            <a class="nav-link" href="#"><i class="material-icons large right">share</i></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">message</i><span class="badge badge-pill bg-light align-text-top">7</span></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">money_off</i><span class="badge badge-pill bg-light align-text-top">...</span></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">star</i><span class="badge badge-pill bg-light align-text-top">12</span></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">notifications</i><span class="badge badge-pill bg-light align-text-top">5</span></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">forum</i></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">email</i><span class="badge badge-pill bg-light align-text-top">2</span></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">security</i></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">contact_phone</i></a>
+        </nav>
+    </div>
+    <main class="container pt-2" role="main">
+        <div class="row">
+            <div class="col-md-8">
+
+                {% if messages %} {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %} {% endif %} {% block content %} {% endblock content %}
+            </div>
+            <div class="col-md-4">
+                <div class="content-section">
+                    <h3>Our Sidebar</h3>
+                    <p class="text-muted">Heads up section
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-light">Latest Post</li>
+                            <li class="list-group-item list-group-item-light">Announcements</li>
+                            <li class="list-group-item list-group-item-light">Calenders</li>
+                            <li class="list-group-item list-group-item-light">etc</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top ">
+        <div class="row ">
+            <div class="col-12 col-md ">
+
+                <small class="d-block mb-3 text-muted ">&copy; 2020 - <a class="material-icons align-bottom py-0">all_inclusive</a></small>
+            </div>
+            <div class="col-6 col-md ">
+                <h5>Features</h5>
+                <ul class="list-unstyled text-small ">
+                    <li><a class="text-muted " href="# ">Cool stuff</a></li>
+                    <li><a class="text-muted " href="# ">Random feature</a></li>
+                    <li><a class="text-muted " href="# ">Team feature</a></li>
+                    <li><a class="text-muted " href="# ">Stuff for developers</a></li>
+                    <li><a class="text-muted " href="# ">Another one</a></li>
+                    <li><a class="text-muted " href="# ">Last time</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md ">
+                <h5>Resources</h5>
+                <ul class="list-unstyled text-small ">
+                    <li><a class="text-muted " href="# ">Resource</a></li>
+                    <li><a class="text-muted " href="# ">Resource name</a></li>
+                    <li><a class="text-muted " href="# ">Another resource</a></li>
+                    <li><a class="text-muted " href="# ">Final resource</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md ">
+                <h5>About</h5>
+                <ul class="list-unstyled text-small ">
+                    <li><a class="text-muted " href="# ">Team</a></li>
+                    <li><a class="text-muted " href="# ">Locations</a></li>
+                    <li><a class="text-muted " href="# ">Privacy</a></li>
+                    <li><a class="text-muted " href="# ">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!--  Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js "></script>
+    <script src="{% static 'boutiqueApp/js/materialize.js' %} "></script>
+    <script src="{% static 'boutiqueApp/js/init.js' %} "></script>
+    <script src="{% static 'boutiqueApp/js/bootstrap.js' %} "></script>
+    <script src="{% static 'boutiqueApp/js/share.js' %} "></script>
+    <script src="{% static 'boutiqueApp/js/offcanvas.js' %} "></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
+    <!--script>
+        window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js "><\/script>')
+    </script-->
+    <!-- script src="{% static '../assets/dist/js/bootstrap.bundle.min.js' %} "></script -->
+
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js " integrity="sha512-53CQcu9ciJDlqhK7UD8dZZ+TF2PFGZrOngEYM/8qucuQba+a+BXOIRsp9PoMNJI3ZeLMVNIxIfZLbG/CdHI5PA==" crossorigin=" anonymous "></script>
+</body>
+
+</html>
