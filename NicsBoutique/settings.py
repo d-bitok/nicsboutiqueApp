@@ -26,7 +26,7 @@ SECRET_KEY = 'cg9=kgnq41=k9r42z&blz+6d+_1c@n^jh+jz^x3f-6c_kru^kp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nicsboutique.herokuapp.com']
 
 
 # Application definition
