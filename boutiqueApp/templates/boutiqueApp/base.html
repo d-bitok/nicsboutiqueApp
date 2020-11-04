@@ -75,7 +75,7 @@
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                     <a class="btn-blank btn-sm btn-secondary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
                 </form>
-                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">2</span><i class="material-icons large right">shopping_cart</i></a>
+                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{order.get_cart_items}}</span><i class="material-icons large right">shopping_cart</i></a>
                 <a class="nav-item nav-link active" href="{% url 'Profile' %}"> {{ user.username }} </a>
                 <a class="btn-blank nav-item nav-link active" href="{% url 'Logout' %}">Logout</a> {% else %}
                 <a class="nav-item nav-link active" href="{% url 'Login' %}">Login</a>

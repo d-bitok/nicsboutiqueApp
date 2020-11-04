@@ -8,10 +8,10 @@
             <table class="table">
                 <tr>
                     <th>
-                        <h5>Items: <strong>2</strong></h5>
+                        <h5>Items: <strong>{{ order.get_cart_items }}</strong></h5>
                     </th>
                     <th>
-                        <h5>Orders: <strong>3360/=</strong></h5>
+                        <h5>Orders: <strong>{{ order.get_cart_total|floatformat:2 }}/=</strong></h5>
                     </th>
                     <th>
                         <a class="btn btn-outline-success" style="margin: 5px; float: right;" href="{% url 'Boutique-Checkout' %}">Checkout</a>
@@ -28,20 +28,25 @@
                 <div style="flex: 2;"><strong>Quantity</strong></div>
                 <div style="flex: 2;"><strong>Total</strong></div>
             </div>
-
+            {% for item in items %}
             <div class="cart-row">
-                <div style="flex: 2"><img class="row-image" src="" alt=""></div>
-                <div style="flex: 2;">Ladybird Dress</div>
-                <div style="flex: 2;">1680/=</div>
+                <div style="flex: 2"><img class="row-image" src="{{ item.product.imageURL }}" alt=""></div>
                 <div style="flex: 2;">
-                    <p class="quantity">2</p>
+                    <p>{{ item.product.name }}</p>
+                </div>
+                <div style="flex: 1;">
+                    <p>{{ item.product.price|floatformat:2 }}/=</p>
+                </div>
+                <div style="flex: 1;">
+                    <p class="quantity">x{{ item.quantity }}</p>
                     <div class="quantity">
                         <i class="material-icons chg-quantity">keyboard_arrow_up</i>
                         <i class="material-icons chg-quantity">keyboard_arrow_down</i>
                     </div>
                 </div>
-                <div style="flex: 1;">3360/=</div>
+                <div style="flex: 1;">{{ item.get_total }}</div>
             </div>
+            {% endfor %}
         </div>
 
     </div>

@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['nicsboutique.herokuapp.com']
 #ALLOWED_HOSTS = []
@@ -130,7 +130,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'Boutique-Home'
+LOGIN_REDIRECT_URL = 'Boutique-Store'
 LOGIN_URL = 'Login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -7,13 +7,16 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 def home(request):
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
+        'title': 'Forum'
     }
     return render(request, 'boutiqueApp/home.html', context)
 
-def store(request):
-    context = {'products': Product.objects.all()}
-    return render(request, 'boutiqueApp/store.html', context)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'boutiqueApp/store.html'
+    context_object_name = 'products'
+    paginate_by = 6
 
 class PostListView(ListView):
     model = Post
@@ -72,7 +75,33 @@ def about(request):
     return render(request,'boutiqueApp/about.html', {'title':'About'})
 
 def cart(request):
-    return render(request, 'boutiqueApp/cart.html', {'title':'Cart'})
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+
+    context = {
+        'items' : items,
+        'order' : order,
+        'title':'Cart'
+    }
+    return render(request, 'boutiqueApp/cart.html', context)
 
 def checkout(request):
-    return render(request, 'boutiqueApp/checkout.html', {'title':'Checkout'})
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+
+    context = {
+        'items' : items,
+        'order' : order,
+        'title':'Checkout'
+    }
+    return render(request, 'boutiqueApp/checkout.html', context)
