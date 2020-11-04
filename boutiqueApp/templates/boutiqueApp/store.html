@@ -1,0 +1,30 @@
+{% extends "boutiqueApp/base.html" %} {% block content %}
+<main class="container" role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>Iko aje?</h1>
+            <p class="lead text-muted">Nguo ziko uko chini. Sijui majina za nguo zama dem sasa.</p>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+            </p>
+        </div>
+    </section>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4">
+            <img class="thumbnail" src="{{product.imageURL}}">
+            <div class="box-element product">
+                <h6><strong> {{ product.name }} </strong></h6>
+                <hr>
+
+                <a class="btn btn-outline-secondary waves-effect waves-light btn-add"><i class="material-icons large">add_shopping_cart</i></a>
+                <a class="btn btn-outline-info waves-effect waves-light"><i class="material-icons large">visibility</i></a>
+                <h4 style="display: inline-block; float: right;"><strong> {{ product.price|floatformat:2 }}/=</strong></h4>
+            </div>
+        </div>
+        {% endfor %}
+</main>
+
+{% endblock content %}

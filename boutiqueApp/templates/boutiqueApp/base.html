@@ -16,22 +16,6 @@
 
     <!-- Bootstrap core CSS -->
 
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
     <!-- Custom styles for this template -->
     <link href="{% static 'boutiqueApp/css/offcanvas.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'boutiqueApp/css/store.css' %}">
@@ -41,58 +25,59 @@
 
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <a class="navbar-brand mr-auto mr-lg-0" style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder;" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">shopping_basket</i>Nics Boutique</a>
+        <a class="navbar-brand mr-auto mr-lg-0" style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder;" href="{% url 'Boutique-Store' %}"><i class="material-icons large right">shopping_basket</i>Nics Boutique</a>
         <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
     <span><i class="material-icons large right">menu</i></span>
   </button>
 
         <div class="navbar-collapse container offcanvas-collapse py-0">
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">home</i><span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'Boutique-Store' %}"><i class="material-icons large right">store</i></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">store</i></a>
+                    <a class="nav-link" href="{% url 'Boutique-Forum' %}"><i class="material-icons large right">forum</i><span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'Boutique-About' %}"><i class="material-icons large right">bubble_chart</i></a>
+                    <a class="nav-link" href="{% url 'Boutique-About' %}"><i class="material-icons large right">shopping_basket</i></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">local_mall</i></a>
+                    <a class="nav-link" href="{% url 'Boutique-Checkout' %}"><i class="material-icons large right">local_mall</i></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#"><i class="material-icons large right">account_balance_wallet</i></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="material-icons large right">local_taxi</i></a>
+                    <a class="nav-link" href="#"><i class="material-icons large right">local_shipping</i></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="material-icons large right">widgets</i></a>
+                <!--li class="nav-item active">
+                <a class="nav-link" href="#"><i class="material-icons large right">widgets</i></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#"><i class="material-icons large right">tune</i></a>
-                </li>
+                </li-->
                 <li class="nav-item active dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons large right">more_vert</i></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="#"><i class="material-icons large right">hotel</i>Hotels</a>
                         <a class="dropdown-item" href="#"><i class="material-icons large right">local_taxi</i>Taxi</a>
                         <a class="dropdown-item" href="#"><i class="material-icons large right">local_mall</i>Malls</a>
-                        <a class="dropdown-item" href="{% url 'Boutique-Home' %}"><i class="material-icons large right">developer_board</i>NEWorld Tech.</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons large right">developer_board</i>NEWorld Tech.</a>
                     </div>
                 </li>
             </ul>
             <div class="navbar-nav">
 
                 {% if user.is_authenticated %}
-                <a class="nav-item nav-link active" href="{% url 'Post-Create' %}">New Post</a>
+                <a class="nav-item nav-link active" href="{% url 'Post-Create' %}"> <i class="material-icons large">chat_bubble_outline</i> </a>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <a class="btn-blank btn-sm btn-outline-secondary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
+                    <a class="btn-blank btn-sm btn-secondary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
                 </form>
-                <a class="nav-link active" href="{% url 'Boutique-Home' %}"><span class="badge badge-pill bg-light float-right align-text-top">2</span><i class="material-icons large right">shopping_cart</i></a>
+                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">2</span><i class="material-icons large right">shopping_cart</i></a>
                 <a class="nav-item nav-link active" href="{% url 'Profile' %}"> {{ user.username }} </a>
-                <a class="nav-item nav-link active" href="{% url 'Logout' %}">Logout</a> {% else %}
+                <a class="btn-blank nav-item nav-link active" href="{% url 'Logout' %}">Logout</a> {% else %}
                 <a class="nav-item nav-link active" href="{% url 'Login' %}">Login</a>
                 <a class="nav-item nav-link active" href="{% url 'Register' %}">Register</a> {% endif %}
             </div>
@@ -106,11 +91,11 @@
             <span class="badge badge-pill bg-light float-right align-text-bottom">27</span>
             </a>
             <a class="nav-link" href="#"><i class="material-icons large right">share</i></a>
-            <a class="nav-link" href="#"><i class="material-icons large right">message</i><span class="badge badge-pill bg-light align-text-top">7</span></a>
-            <a class="nav-link" href="#"><i class="material-icons large right">money_off</i><span class="badge badge-pill bg-light align-text-top">...</span></a>
+            <a class="nav-link" href="{% url 'Boutique-Forum' %}"><i class="material-icons large right">forum</i><span class="badge badge-pill bg-light align-text-top">7</span></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">message</i><span class="badge badge-pill bg-light align-text-top">...</span></a>
             <a class="nav-link" href="#"><i class="material-icons large right">star</i><span class="badge badge-pill bg-light align-text-top">12</span></a>
             <a class="nav-link" href="#"><i class="material-icons large right">notifications</i><span class="badge badge-pill bg-light align-text-top">5</span></a>
-            <a class="nav-link" href="#"><i class="material-icons large right">forum</i></a>
+            <a class="nav-link" href="#"><i class="material-icons large right">money_off</i></a>
             <a class="nav-link" href="#"><i class="material-icons large right">email</i><span class="badge badge-pill bg-light align-text-top">2</span></a>
             <a class="nav-link" href="#"><i class="material-icons large right">security</i></a>
             <a class="nav-link" href="#"><i class="material-icons large right">contact_phone</i></a>

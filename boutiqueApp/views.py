@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
-from .models import Post
+from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -10,6 +10,10 @@ def home(request):
         'posts': Post.objects.all()
     }
     return render(request, 'boutiqueApp/home.html', context)
+
+def store(request):
+    context = {'products': Product.objects.all()}
+    return render(request, 'boutiqueApp/store.html', context)
 
 class PostListView(ListView):
     model = Post
@@ -66,3 +70,9 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request,'boutiqueApp/about.html', {'title':'About'})
+
+def cart(request):
+    return render(request, 'boutiqueApp/cart.html', {'title':'Cart'})
+
+def checkout(request):
+    return render(request, 'boutiqueApp/checkout.html', {'title':'Checkout'})
