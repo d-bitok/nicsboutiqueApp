@@ -45,7 +45,7 @@ def updateItem(request):
 
 def store(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user.Customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
