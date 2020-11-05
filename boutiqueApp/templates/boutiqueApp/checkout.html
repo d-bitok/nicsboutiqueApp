@@ -118,7 +118,7 @@
             'zipcode': null,
         }
 
-        if (shipping == 'True') {
+        if (shipping != 'False') {
             shippingInfo.address = form.address.value
             shippingInfo.city = form.city.value
             shippingInfo.state = form.state.value
