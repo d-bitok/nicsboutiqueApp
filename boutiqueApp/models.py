@@ -4,6 +4,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from PIL import Image
+from django.core.exceptions import ObjectDoesNotExist
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -24,6 +27,14 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
+    @receiver(post_save, sender=User)
+    def customer(sender, instance, created, **kwargs):
+        try:
+            instance.customer.save()
+        except ObjectDoesNotExist:
+            Customer.objects.create(user=instance)
+    
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)

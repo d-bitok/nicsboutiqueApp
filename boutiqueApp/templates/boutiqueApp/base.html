@@ -11,6 +11,18 @@
     <title>Nics Boutique</title>
     {% endif %}
 
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Bootstrap core CSS -->
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'boutiqueApp/css/offcanvas.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'boutiqueApp/css/store.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'boutiqueApp/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'boutiqueApp/css/album.css' %}" type="text/css">
+
     <script type="text/javascript">
         var user = '{{request.user}}'
 
@@ -32,20 +44,6 @@
         }
         var csrftoken = getToken('csrftoken');
     </script>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <!-- Bootstrap core CSS -->
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'boutiqueApp/css/offcanvas.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'boutiqueApp/css/store.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'boutiqueApp/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'boutiqueApp/css/album.css' %}" type="text/css">
-
-
-
 </head>
 
 <body class="bg-light">
@@ -194,6 +192,11 @@
 
     <!--  Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/materialize.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/init.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/share.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/offcanvas.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/cart.js' %} "></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
     <!--script>
@@ -209,11 +212,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js " integrity="sha512-53CQcu9ciJDlqhK7UD8dZZ+TF2PFGZrOngEYM/8qucuQba+a+BXOIRsp9PoMNJI3ZeLMVNIxIfZLbG/CdHI5PA==" crossorigin=" anonymous "></script>
 
-    <script type="text/javascript" src="{% static 'boutiqueApp/js/materialize.js' %} "></script>
-    <script type="text/javascript" src="{% static 'boutiqueApp/js/init.js' %} "></script>
-    <script type="text/javascript" src="{% static 'boutiqueApp/js/share.js' %} "></script>
-    <script type="text/javascript" src="{% static 'boutiqueApp/js/offcanvas.js' %} "></script>
-    <script type="text/javascript" src="{% static 'boutiqueApp/js/cart.js' %} "></script>
 
 
 </body>
