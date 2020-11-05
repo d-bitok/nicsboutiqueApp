@@ -1,3 +1,4 @@
+from posix import times_result
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -61,6 +62,15 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderitems])
         return total
+
+    @property
+    def shipping(self):
+        shipping = False
+        orderitems= self.orderitem_set.all()
+        for i in orderitems:
+            if i.product.digital == False:
+                shipping = True
+        return shipping
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL,blank=True, null=True)

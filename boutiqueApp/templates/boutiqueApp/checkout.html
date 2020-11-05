@@ -33,13 +33,15 @@
 
                 </div>
                 <hr>
+                <button class="btn btn-success btn-block" type="submit" id="form-button">Continue</button>
 
-                <input type="text" id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                <!-- input type="text" id="form-button" class="btn btn-success btn-block" type="submit" value="Continue"-->
             </form>
         </div>
         <br>
-        <div class="box-element" id="payment-info">
+        <div class="box-element hidden" id="payment-info">
             <small>M-Pesa Payment Options</small>
+            <a class="btn waves-effect waves-light btn-sm btn-outline-info" id="make-payment">Make Payment</a>
         </div>
     </div>
 
@@ -68,4 +70,84 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var shipping = '{{order.shipping}}'
+    var total = '{{ order.get_cart_total }}'
+
+    if (shipping == 'False') {
+        document.getElementById('shipping-info').innerHTML = ''
+    }
+
+    if (user != 'AnonymousUser') {
+        document.getElementById('user-info').innerHTML = ''
+    }
+
+    if (shipping == 'False' && user != 'AnonymousUser') {
+        // Hide entire form if user is logged in and shipping is False
+        document.getElementById('form-fom-wrapper').classList.add('hidden');
+        // Show payment if logged in user wants to buy an item that does not require shipping
+        document.getElementById('payment-info').classList.remove("hidden");
+    }
+
+    var form = document.getElementById('form')
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault()
+        console.log('Form Submitted, ...')
+        document.getElementById('form-button').classList.add("hidden")
+        document.getElementById('payment-info').classList.remove("hidden")
+    })
+
+    document.getElementById('make-payment').addEventListener('click', function(e) {
+        submitFormData()
+    })
+
+    function submitFormData() {
+        console.log('Payment Button Clicked')
+
+        var useFormData = {
+            'name': null,
+            'email': null,
+            'total': total,
+        }
+
+        var shippingInfo = {
+            'address': null,
+            'city': null,
+            'state': null,
+            'zipcode': null,
+        }
+
+        if (shipping == 'True') {
+            shippingInfo.address = form.address.value
+            shippingInfo.city = form.city.value
+            shippingInfo.state = form.state.value
+            shippingInfo.zipcode = form.zipcode.value
+        }
+
+        if (user == 'AnonymousUser') {
+            useFormData.name = form.name.value
+            useFormData.email = form.email.value
+        }
+
+        var url = '/process_order/'
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'form': useFormData,
+                    'shipping': shippingInfo
+                })
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Transaction Completed');
+                window.location.href = "{% url 'Boutique-Store' %}"
+            })
+    }
+</script>
 {% endblock content %}

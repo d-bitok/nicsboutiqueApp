@@ -11,6 +11,28 @@
     <title>Nics Boutique</title>
     {% endif %}
 
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var index = 0; index < cookies.length; index++) {
+                    var cookie = cookies[index].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken');
+    </script>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -21,6 +43,9 @@
     <link rel="stylesheet" href="{% static 'boutiqueApp/css/store.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'boutiqueApp/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'boutiqueApp/css/album.css' %}" type="text/css">
+
+
+
 </head>
 
 <body class="bg-light">
@@ -70,16 +95,17 @@
             <div class="navbar-nav">
 
                 {% if user.is_authenticated %}
-                <a class="nav-item nav-link active" href="{% url 'Post-Create' %}"> <i class="material-icons large">chat_bubble_outline</i> </a>
+                <a class="btn-blank waves-effect waves-light btn-sm btn-outline-success nav-link nav-item" href="{% url 'Post-Create' %}"> <i class="material-icons pulse large">chat_bubble_outline</i> </a>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <a class="btn-blank btn-sm btn-secondary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
+                    <a class="btn-blank btn-sm btn-outline-primary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
                 </form>
-                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{order.get_cart_items}}</span><i class="material-icons large right">shopping_cart</i></a>
-                <a class="nav-item nav-link active" href="{% url 'Profile' %}"> {{ user.username }} </a>
-                <a class="btn-blank nav-item nav-link active" href="{% url 'Logout' %}">Logout</a> {% else %}
-                <a class="nav-item nav-link active" href="{% url 'Login' %}">Login</a>
-                <a class="nav-item nav-link active" href="{% url 'Register' %}">Register</a> {% endif %}
+                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{cartItems}}</span><i class="material-icons large right">shopping_cart</i></a>
+                <a class="btn-blank waves-effect waves-light btn-sm btn-outline-secondary nav-link nav-item" href="{% url 'Profile' %}"> {{ user.username }} </a>
+                <a class="btn-blank waves-effect waves-light btn-sm btn-outline-secondary nav-link nav-item" href="{% url 'Logout' %}">Logout</a> {% else %}
+                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{cartItems}}</span><i class="material-icons large right">shopping_cart</i></a>
+                <a class="btn-blank waves-effect waves-light btn-sm btn-outline-info nav-link nav-item" href="{% url 'Login' %}">Login</a>
+                <a class="btn-blank waves-effect waves-light btn-sm btn-outline-success nav-link nav-item" href="{% url 'Register' %}">Register</a> {% endif %}
             </div>
         </div>
     </nav>
@@ -168,11 +194,6 @@
 
     <!--  Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js "></script>
-    <script src="{% static 'boutiqueApp/js/materialize.js' %} "></script>
-    <script src="{% static 'boutiqueApp/js/init.js' %} "></script>
-    <script src="{% static 'boutiqueApp/js/bootstrap.js' %} "></script>
-    <script src="{% static 'boutiqueApp/js/share.js' %} "></script>
-    <script src="{% static 'boutiqueApp/js/offcanvas.js' %} "></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
     <!--script>
@@ -187,6 +208,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js " integrity="sha512-53CQcu9ciJDlqhK7UD8dZZ+TF2PFGZrOngEYM/8qucuQba+a+BXOIRsp9PoMNJI3ZeLMVNIxIfZLbG/CdHI5PA==" crossorigin=" anonymous "></script>
+
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/materialize.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/init.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/share.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/offcanvas.js' %} "></script>
+    <script type="text/javascript" src="{% static 'boutiqueApp/js/cart.js' %} "></script>
+
+
 </body>
 
 </html>

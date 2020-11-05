@@ -40,8 +40,8 @@
                 <div style="flex: 1;">
                     <p class="quantity">x{{ item.quantity }}</p>
                     <div class="quantity">
-                        <i class="material-icons chg-quantity">keyboard_arrow_up</i>
-                        <i class="material-icons chg-quantity">keyboard_arrow_down</i>
+                        <i data-product="{{ item.product.id }}" data-action="add" class="material-icons chg-quantity update-cart">keyboard_arrow_up</i>
+                        <i data-product="{{ item.product.id }}" data-action="remove" class="material-icons chg-quantity update-cart">keyboard_arrow_down</i>
                     </div>
                 </div>
                 <div style="flex: 1;">{{ item.get_total }}</div>
