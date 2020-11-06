@@ -1,4 +1,4 @@
-from posix import times_result
+#from posix import times_result
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -38,7 +38,7 @@ class Customer(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
     image = models.ImageField(upload_to='market', default='default.jpg', null=True, blank=True)
 
@@ -52,6 +52,16 @@ class Product(models.Model):
         except:
             url = ''
         return url
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
@@ -108,3 +118,6 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)

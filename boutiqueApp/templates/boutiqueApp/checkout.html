@@ -41,7 +41,7 @@
         <br>
         <div class="box-element hidden" id="payment-info">
             <small>M-Pesa Payment Options</small>
-            <a class="btn waves-effect waves-light btn-sm btn-outline-info" id="make-payment">Make Payment</a>
+            <button class="btn waves-effect waves-light btn-sm btn-outline-info" id="make-payment">Make Payment</button>
         </div>
     </div>
 
@@ -84,7 +84,7 @@
 
     if (shipping == 'False' && user != 'AnonymousUser') {
         // Hide entire form if user is logged in and shipping is False
-        document.getElementById('form-fom-wrapper').classList.add('hidden');
+        document.getElementById('form-wrapper').classList.add('hidden');
         // Show payment if logged in user wants to buy an item that does not require shipping
         document.getElementById('payment-info').classList.remove("hidden");
     }
@@ -105,7 +105,7 @@
     function submitFormData() {
         console.log('Payment Button Clicked')
 
-        var useFormData = {
+        var userFormData = {
             'name': null,
             'email': null,
             'total': total,
@@ -118,7 +118,7 @@
             'zipcode': null,
         }
 
-        if (shipping != 'False') {
+        /*if (shipping != 'False') {
             shippingInfo.address = form.address.value
             shippingInfo.city = form.city.value
             shippingInfo.state = form.state.value
@@ -126,9 +126,12 @@
         }
 
         if (user == 'AnonymousUser') {
-            useFormData.name = form.name.value
-            useFormData.email = form.email.value
-        }
+            userFormData.name = form.name.value
+            userFormData.email = form.email.value
+        }*/
+
+        console.log('User Info:', userFormData)
+
 
         var url = '/process_order/'
         fetch(url, {
@@ -138,14 +141,17 @@
                     'X-CSRFToken': csrftoken,
                 },
                 body: JSON.stringify({
-                    'form': useFormData,
+                    'form': userFormData,
                     'shipping': shippingInfo
-                })
+                }),
             })
             .then((response) => response.json())
             .then((data) => {
                 console.log('Success:', data);
                 alert('Transaction Completed');
+
+                cart = {}
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain;path=/"
                 window.location.href = "{% url 'Boutique-Store' %}"
             })
     }

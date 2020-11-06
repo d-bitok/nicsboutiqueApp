@@ -43,15 +43,37 @@
             return cookieValue;
         }
         var csrftoken = getToken('csrftoken');
+
+        function getCookie(name) {
+            var cookieArr = document.cookie.split(";");
+            for (var index = 0; index < cookieArr.length; index++) {
+                var cookiePair = cookieArr[index].split("=");
+
+                if (name == cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+
+        var cart = JSON.parse(getCookie('cart'))
+
+        if (cart == undefined) {
+            cart = {}
+            console.log('Cart Created!', cart)
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        console.log('Cart:', cart)
     </script>
 </head>
 
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <a class="navbar-brand mr-auto mr-lg-0" style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder;" href="{% url 'Boutique-Store' %}"><i class="material-icons large right">shopping_basket</i>Nics Boutique</a>
+        <a class="btn-blank btn-sm" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{cartItems}}</span><i class="material-icons large right">shopping_cart</i></a>
         <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-    <span><i class="material-icons large right">menu</i></span>
-  </button>
+            <span><i class="material-icons large right">menu</i></span>
+        </button>
 
         <div class="navbar-collapse container offcanvas-collapse py-0">
             <ul class="navbar-nav mr-auto">
@@ -98,10 +120,8 @@
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                     <a class="btn-blank btn-sm btn-outline-primary waves-effect waves-light" type="submit"><i class="material-icons large right">search</i>Search</a>
                 </form>
-                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{cartItems}}</span><i class="material-icons large right">shopping_cart</i></a>
                 <a class="btn-blank waves-effect waves-light btn-sm btn-outline-secondary nav-link nav-item" href="{% url 'Profile' %}"> {{ user.username }} </a>
                 <a class="btn-blank waves-effect waves-light btn-sm btn-outline-secondary nav-link nav-item" href="{% url 'Logout' %}">Logout</a> {% else %}
-                <a class="nav-link active" href="{% url 'Boutique-Cart' %}"><span class="badge badge-pill bg-light float-right align-text-top">{{cartItems}}</span><i class="material-icons large right">shopping_cart</i></a>
                 <a class="btn-blank waves-effect waves-light btn-sm btn-outline-info nav-link nav-item" href="{% url 'Login' %}">Login</a>
                 <a class="btn-blank waves-effect waves-light btn-sm btn-outline-success nav-link nav-item" href="{% url 'Register' %}">Register</a> {% endif %}
             </div>
