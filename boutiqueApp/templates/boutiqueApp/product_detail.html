@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
-                <h4 class="text-black"> {{ product.designer }} </h4>
+                <h4 class="text-black"> {{ object.designer }} </h4>
                 <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
@@ -32,16 +32,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4 col-md-4 py-4">
-                <image class="thumbnail" src="{{ product.imageURL }}"></image>
+                <image class="thumbnail" src="{{ object.imageURL }}"></image>
             </div>
             <div class="col-sm-8 offset-md-4 py-0">
-                <p><em> {{ product.description }} </em></p>
+                <p><em> {{ object.description }} </em></p>
             </div>
         </div>
     </div>
 </main>
 <div class="box-element product">
-    <h6><strong> {{ product.productName }} </strong></h6>
+    <h6><strong> {{ object.productName }} </strong></h6>
     <hr>
     <div class="nav-scroller shadow-sm">
         <nav class="nav container-fluid nav-underline">
@@ -53,7 +53,7 @@
             <a class="waves-effect waves-light nav-link" href="{% url 'Boutique-Store' %}"><i class="material-icons large">store</i></a>
         </nav>
     </div>
-    <h4 style="display: inline-block; float: right;"><strong> {{ product.price|floatformat:2 }}/=</strong></h4>
+    <h4 style="display: inline-block; float: right;"><strong> {{ object.price|floatformat:2 }}/=</strong></h4>
     {% if object.designer == user %}
     <div>
         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'Product-Update' object.id %}">Update</a>
