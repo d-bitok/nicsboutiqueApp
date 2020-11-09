@@ -1,36 +1,43 @@
 {% extends "boutiqueApp/base.html" %} {% block content %}
 <main class="container" role="main">
-
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1>Tulia, Umefika.</h1>
-            <p class="lead text-muted">Najua umengoja sana, but still iko under developing stage.</p>
-            <p>
-                <a href="https://hips.hearstapps.com/pop.h-cdn.co/assets/17/24/1497533116-not-dead.gif?crop=0.8166666666666667xw:1xh;center,top&resize=640:*" class="btn btn-danger my-2">Kill the internet <i class="material-icons large">clear</i></a>
-                <a href="https://media.tenor.com/images/88426c4a91833f216e1d6370b3a59560/tenor.gif" class="btn btn-info my-2">Call me babe <i class="material-icons">mood</i></a>
-            </p>
-        </div>
-    </section>
     <div class="row">
         {% for product in products %}
         <div class="col-lg-4">
-            <img class="thumbnail" src="{{product.imageURL}}">
+            <a href="{% url 'Product-Detail' product.id %}" data-product={{ product.id }}>
+                <image class="thumbnail" src="{{product.imageURL}}"></image>
+            </a>
             <div class="box-element product">
-                <h6><strong> {{ product.name }} </strong></h6>
+                <h6><strong> {{ product.productName }} </strong></h6>
                 <hr>
 
                 <button data-product={{ product.id }} data-action="add" class="update-cart btn btn-outline-secondary waves-effect waves-light btn-add"><i class="material-icons large">add_shopping_cart</i></button>
-                <a class="btn btn-outline-info waves-effect waves-light"><i class="material-icons large">visibility</i></a>
+                <a class="btn btn-outline-info waves-effect waves-light" href="#"><i class="material-icons large">star_border</i></a>
                 <h4 style="display: inline-block; float: right;"><strong> {{ product.price|floatformat:2 }}/=</strong></h4>
             </div>
+
         </div>
-        {% endfor %}{% if is_paginated %} {% if page_obj.has_previous %}
-        <a class="btn btn-info mb-4" href="?page=1">First</a>
-        <a class="btn btn-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a> {% endif %} {% for num in page_obj.paginator.page_range %} {% if page_obj.number == num %}
-        <a class="btn btn-info mb-4" href="?page={{ num }} "> {{ num }} </a> {% elif num > page_obj.number|add:'-3'%}
-        <!--and num < page_obj.number|add: '3'--><a class="btn btn-outline-info mb-4" href="?page={{ num }} "> {{ num }} </a> {% endif %} {% endfor %} {% if page_obj.has_next %}
-        <a class="btn btn-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a class="btn btn-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a> {% endif %} {% endif %}
+        {% endfor %}
+
+        <div class="container-fluid">
+
+            {% if products.has_other_pages %}
+            <div class="pagination">
+
+                {% if products.has_previous %}
+
+                <a class="btn btn-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>{% else %}
+                <a class="btn btn-info mb-4 disabled"><span>&laquo;</span></a> {% endif %} {% for i in products.paginator.page_range %} {% if products.number == i %}
+                <a class="btn btn-info mb-4 active" href="?page={{ i }} "><span>{{ i }} <span class="sr-only">(current)</span> </span></a> {% else %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ i }}"> {{ i }} </a> {% endif %} {% endfor %} {% if products.has_next %}
+                <a class="btn btn-info mb-4" href="?page={{ products.next_page_number }}">Next</a>
+                <a class="btn btn-info mb-4" href="?page={{ products.paginator.num_pages }}">Last</a> {% else %}
+                <a class="btn btn-info mb-4 disabled"><span>&raquo;</span></a> {% endif %}
+            </div>
+
+            {% endif %}
+
+        </div>
 </main>
 
 {% endblock content %}

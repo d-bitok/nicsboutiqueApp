@@ -16,23 +16,23 @@ def cookieCart(request):
 
     for i in cart:
         try:
-            cartItems += cart[i]['quantity']
+            cartItems += cart[i]["quantity"]
 
-            product = Product.objects.get(id=1)
-            total = (product.price * cart[i]['quantity'])
+            product = Product.objects.get(id=i)
+            total = (product.price * cart[i]["quantity"])
 
             order['get_cart_total'] += total
-            order['get_cart_items'] += cart[i]['quantity']
+            order['get_cart_items'] += cart[i]["quantity"]
 
             item = {
                 'product':{
                     'id':product.id,
-                    'name':product.name,
+                    'designer':Product.designer,
+                    'name':product.productName,
                     'price':product.price,
                     'imageURL':product.imageURL
                     },
-                'quantity':product.cart[i]['quantity'],
-                'digital':product.digital,
+                'quantity':cart[i]["quantity"],
                 'get_total':total,
                 }
             items.append(item)

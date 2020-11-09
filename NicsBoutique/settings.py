@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import os
-import django_heroku
+#import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,8 +27,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nicsboutique.herokuapp.com']
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['nicsboutique.herokuapp.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -130,7 +130,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'Boutique-Store'
+LOGIN_REDIRECT_URL = 'Boutique-Home'
 LOGIN_URL = 'Login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -142,4 +142,4 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

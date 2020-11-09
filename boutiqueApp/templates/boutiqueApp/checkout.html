@@ -1,41 +1,41 @@
 {% extends "boutiqueApp/base.html" %}{% block content %}
 <div class="row">
     <div class="col-lg-6">
-        <div class="box-element" id="fom-wrapper">
+        <div class="box-element" id="form-wrapper">
             <form id="form">
                 <div id="user-info">
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="Name" placeholder="Name...">
+                        <input required class="form-control" type="text" name="name" placeholder="Name...">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="email" name="Email" placeholder="Email...">
+                        <input required class="form-control" type="email" name="email" placeholder="Email...">
                     </div>
                 </div>
                 <div id="shipping-info">
                     <hr>
-                    <p><strong> Shipping Information </strong></p>
+                    <p><strong> Shipping Information: </strong></p>
                     <hr>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="Address" placeholder="Address...">
+                        <input required class="form-control" type="text" name="address" placeholder="Address...">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="City" placeholder="City...">
+                        <input required class="form-control" type="text" name="city" placeholder="City...">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="State" placeholder="State...">
+                        <input required class="form-control" type="text" name="state" placeholder="State...">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="Zip Code" placeholder="Zip Code...">
+                        <input required class="form-control" type="text" name="zipcode" placeholder="Zip Code...">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="Country" placeholder="Country...">
+                        <input required class="form-control" type="text" name="country" placeholder="Country...">
                     </div>
 
                 </div>
                 <hr>
-                <button class="btn btn-success btn-block" type="submit" id="form-button">Continue</button>
+                <!--button class="btn btn-success btn-block" type="submit" id="form-button">Continue</button-->
 
-                <!-- input type="text" id="form-button" class="btn btn-success btn-block" type="submit" value="Continue"-->
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
             </form>
         </div>
         <br>
@@ -54,7 +54,7 @@
             <div class="cart-row">
                 <div style="flex:2"><img class="row-image" src="{{ item.product.imageURL }}"></div>
                 <div style="flex:2">
-                    <p>{{ item.product.name }}</p>
+                    <p>{{ item.product.productName }}</p>
                 </div>
                 <div style="flex:1">
                     <p>{{ item.product.price }}/=</p>
@@ -71,7 +71,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var shipping = '{{order.shipping}}'
+    var shipping = '{{ order.shipping }}'
     var total = '{{ order.get_cart_total }}'
 
     if (shipping == 'False') {
@@ -84,7 +84,7 @@
 
     if (shipping == 'False' && user != 'AnonymousUser') {
         // Hide entire form if user is logged in and shipping is False
-        document.getElementById('form-wrapper').classList.add('hidden');
+        document.getElementById('form-wrapper').classList.add("hidden");
         // Show payment if logged in user wants to buy an item that does not require shipping
         document.getElementById('payment-info').classList.remove("hidden");
     }
@@ -106,19 +106,19 @@
         console.log('Payment Button Clicked')
 
         var userFormData = {
-            'name': null,
-            'email': null,
+            'name': 'null',
+            'email': 'null',
             'total': total,
         }
 
         var shippingInfo = {
-            'address': null,
-            'city': null,
-            'state': null,
-            'zipcode': null,
+            'address': 'null',
+            'city': 'null',
+            'state': 'null',
+            'zipcode': 'null',
         }
 
-        /*if (shipping != 'False') {
+        if (shipping != 'False') {
             shippingInfo.address = form.address.value
             shippingInfo.city = form.city.value
             shippingInfo.state = form.state.value
@@ -128,10 +128,10 @@
         if (user == 'AnonymousUser') {
             userFormData.name = form.name.value
             userFormData.email = form.email.value
-        }*/
+        }
 
         console.log('User Info:', userFormData)
-
+        console.log('Shipping Info:', shippingInfo)
 
         var url = '/process_order/'
         fetch(url, {

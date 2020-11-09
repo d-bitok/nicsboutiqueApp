@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def home(request):
     context = {
@@ -17,6 +18,103 @@ def home(request):
         'title': 'Forum'
     }
     return render(request, 'boutiqueApp/home.html', context)
+
+def store(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.all().order_by('-date_added')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products, 6)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    context = {'products':products, 'paginator':paginator, 'cartItems':cartItems}
+    return render(request, 'boutiqueApp/store.html', context)
+
+def boutique(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.all().order_by('-date_added')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products, 6)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    context = {'products':products, 'paginator':paginator, 'cartItems':cartItems}
+    return render(request, 'boutiqueApp/boutique.html', context)
+
+class StoreListView(ListView):
+    model = Product
+    template_name = 'boutiqueApp/boutique.html'
+    context_object_name = 'products'
+    ordering = ['-date_added']
+    paginate_by = 6
+
+def productDetail(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.all()
+    context = {'products':products, 'cartItems':cartItems}
+    return render(request, 'boutiqueApp/product_detail.html', context)
+
+class ProductDetailView(DetailView):
+    model = Product
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Product
+    fields = ['designer', 'productName', 'image', 'price', 'digital', 'description']
+
+    def form_valid(self, form):
+        form.instance.designer = self.request.user
+        return super(ProductCreateView,self).form_valid(form)
+    
+        
+
+
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Product
+    fields = ['designer', 'productName', 'image', 'price', 'digital', 'description']
+
+    def form_valid(self, form):
+        form.instance.designer = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        product = self.get_object()
+        if self.request.user == product.designer:
+            return True
+        return False
+
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Product
+    success_url = '/'
+
+    def test_func(self):
+        product = self.get_object()
+        if self.request.user == product.designer:
+            return True
+        return False
 
 def updateItem(request):
     data = json.loads(request.body)
@@ -44,14 +142,6 @@ def updateItem(request):
 
     return JsonResponse('Item was added', safe=False)
 
-def store(request):
-    data = cartData(request)
-    cartItems = data['cartItems']
-
-    products = Product.objects.all()
-    context = {'products':products, 'cartItems':cartItems}
-    return render(request, 'boutiqueApp/store.html', context)
-
 class PostListView(ListView):
     model = Post
     template_name = 'boutiqueApp/home.html'     # <app>/<model>_<viewtype>.html
@@ -71,14 +161,6 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'content']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -104,7 +186,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-
 def about(request):
     return render(request,'boutiqueApp/about.html', {'title':'About'})
 
@@ -114,12 +195,7 @@ def cart(request):
     order = data['order']
     items = data['items']
 
-    context = {
-        'items' : items,
-        'order' : order,
-        'title':'Cart',
-        'cartItems': cartItems
-    }
+    context = {'items' : items, 'order' : order, 'title':'Cart', 'cartItems': cartItems}
     return render(request, 'boutiqueApp/cart.html', context)
 
 def processOrder(request):

@@ -1,0 +1,64 @@
+{% extends "boutiqueApp/base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="collapse bg-light" id="navbarHeader">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+                <h4 class="text-black"> {{ product.designer }} </h4>
+                <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-dark">Contact</h4>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-dark">Follow on Twitter</a></li>
+                    <li><a href="#" class="text-dark">Like on Facebook</a></li>
+                    <li><a href="#" class="text-dark">Email me</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="navbar navbar-light bg-light shadow-sm">
+    <div class="container d-flex justify-content-between">
+        <a href="{% url 'Boutique-Cart' %}" class="navbar-brand d-flex align-items-center">
+            <strong> {{ product.productName }} </strong>
+        </a>
+        <a class="btn-blank navbar-toggler btn-sm btn-info waves-effect waves-light pulse" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="material-icons large">share</i>
+        </a>
+    </div>
+</div>
+</header>
+<main class="container" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 py-4">
+                <image class="thumbnail" src="{{ product.imageURL }}"></image>
+            </div>
+            <div class="col-sm-8 offset-md-4 py-0">
+                <p><em> {{ product.description }} </em></p>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="box-element product">
+    <h6><strong> {{ product.productName }} </strong></h6>
+    <hr>
+    <div class="nav-scroller shadow-sm">
+        <nav class="nav container-fluid nav-underline">
+            <a data-product={{ product.id }} data-action="add" class="update-like nav-link waves-effect waves-light btn-add" href="#"><i class="material-icons large" style="color: red;">favorite_border</i><span class="badge badge-pill bg-light align-top">30</span></a>
+            <a class="waves-effect waves-light nav-link" href="#"><i class="material-icons large">subject</i></a>
+            <a data-product={{ product.id }} data-action="add" class="update-cart nav-link waves-effect waves-light btn-add"><i class="material-icons large">add_shopping_cart</i></a>
+            <a class="waves-effect waves-light nav-link" href="#"><i class="material-icons large">chat_bubble_outline</i></a>
+            <a class="waves-effect waves-light nav-link" href="#"><i class="material-icons large">star_border</i></a>
+            <a class="waves-effect waves-light nav-link" href="{% url 'Boutique-Store' %}"><i class="material-icons large">store</i></a>
+        </nav>
+    </div>
+    <h4 style="display: inline-block; float: right;"><strong> {{ product.price|floatformat:2 }}/=</strong></h4>
+    {% if object.designer == user %}
+    <div>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'Product-Update' object.id %}">Update</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'Product-Delete' object.id %}">Delete</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
