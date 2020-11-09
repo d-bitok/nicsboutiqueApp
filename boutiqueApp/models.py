@@ -30,7 +30,7 @@ class Post(models.Model):
             return reverse('Post-Detail', kwargs={"pk": self.pk})
         
 class Customer(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
     email = models.EmailField(max_length=254)
 
@@ -44,11 +44,11 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='market', default='default.jpg')
+    image = models.ImageField(upload_to='market', default='knot.jpeg')
     description = models.CharField(max_length=300, null=True)
 
     def __str__(self):
-        return self.designer
+        return str(self.designer)
     
     def get_absolute_url(self):
             return reverse('Product-Detail', kwargs={"pk": self.pk})
@@ -61,10 +61,15 @@ class Product(models.Model):
             url = ''
         return url
 
-    def get_form_kwargs(self):
-        kwargs = super(Product, self).get_form_kwargs()
-        kwargs['user'] = self.request.user 
-        return kwargs
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
    
 
