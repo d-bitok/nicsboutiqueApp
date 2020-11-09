@@ -35,7 +35,7 @@ class Customer(models.Model):
     email = models.EmailField(max_length=254)
 
     def __str__(self):
-        return self.name
+        return str(self.user)
 
 
 class Product(models.Model):
@@ -98,7 +98,7 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.product.productName)
+        return str(self.product)
 
     @property
     def get_total(self):
@@ -115,7 +115,7 @@ class ShippingAddress(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.address
+        return str(self.address)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

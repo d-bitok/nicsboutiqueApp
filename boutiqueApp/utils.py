@@ -1,4 +1,5 @@
 import json
+from django.contrib.auth.models import UserManager
 
 from django.http import request
 from .models import *
