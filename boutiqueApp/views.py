@@ -55,10 +55,15 @@ def store(request):
             item = {
                 'product':{
                     'id':product.id,
-                    'designer':Product.designer,
-                    'name':product.productName,
+                    'productName':product.productName,
                     'price':product.price,
-                    'imageURL':product.imageURL
+                    'designer':product.designer,
+                    'price':product.price,
+                    'digital':product.digital,
+                    'date_added':product.date_added,
+                    'imageURL':product.imageURL,
+                    'description':product.description,
+                    'designer':product.designer
                     },
                 'quantity':cart[i]["quantity"],
                 'get_total':total,
@@ -130,7 +135,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['designer', 'productName', 'image', 'price', 'digital', 'description']
+    fields = ['productName', 'image', 'price', 'digital', 'description', 'designer']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
@@ -138,7 +143,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    fields = ['designer', 'productName', 'image', 'price', 'digital', 'description']
+    fields = ['productName', 'image', 'price', 'digital', 'description', 'designer']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
