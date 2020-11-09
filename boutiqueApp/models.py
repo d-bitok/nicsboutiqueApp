@@ -30,7 +30,7 @@ class Post(models.Model):
             return reverse('Post-Detail', kwargs={"pk": self.pk})
         
 class Customer(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
     email = models.EmailField(max_length=254)
 
