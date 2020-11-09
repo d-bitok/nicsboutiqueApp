@@ -129,17 +129,17 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
 
-    #def form_valid(self, form):
-    #    form.instance.author = self.request.user
-    #    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     fields = ['productName', 'image', 'price', 'digital', 'description', 'designer']
 
-    def form_valid(self, form):
-        form.instance.designer = self.request.user
-        return super().form_valid(form)
+    #def form_valid(self, form):
+    #    form.instance.designer = self.request.user
+    #    return super().form_valid(form)
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
