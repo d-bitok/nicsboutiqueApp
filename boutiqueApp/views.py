@@ -12,6 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+
 def home(request):
     context = {
         'posts': Post.objects.all(),
@@ -189,8 +191,10 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     fields = ['productName', 'price', 'digital', 'image', 'description']
 
     def form_valid(self, form):
-        form.instance.designer = self.request.user
-        return super().form_valid(form)
+        try:
+            form.instance.designer = self.request.user
+        except IntegrityError:
+            return super().form_valid(form)
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
