@@ -191,10 +191,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         try:
-            form.instance.user = self.request.user
+            form.instance.designer = self.request.user
+            return super().form_valid(form)
         except IntegrityError:
             pass
-        return super().form_valid(form)
+        
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
