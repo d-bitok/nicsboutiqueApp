@@ -186,7 +186,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['productName', 'price', 'digital', 'image', 'description', 'designer']
+    fields = ['description']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
