@@ -10,7 +10,10 @@ def create_product(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Product)
 def save_product(sender, instance, **kwargs):
-    instance.productName.save()
+    try:
+        instance.designer.save()
+    except AttributeError:
+        Product.objects.create(user=instance)
 
 @receiver(post_save, sender=Product)
 def customer(sender, instance, created, **kwargs):
