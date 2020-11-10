@@ -54,7 +54,7 @@ def store(request):
 
             item = {
                 'product':{
-                    'id':product.id,
+                    #'id':product.id,
                     'productName':product.productName,
                     'price':product.price,
                     'designer':product.designer,
@@ -123,7 +123,7 @@ def boutique(request):
 
             item = {
                 'product':{
-                    'id':product.id,
+                    #'id':product.id,
                     'productName':product.productName,
                     'price':product.price,
                     'designer':product.designer,
@@ -186,7 +186,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['description']
+    fields = ['productName', 'price', 'digital', 'image', 'description', 'designer']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
