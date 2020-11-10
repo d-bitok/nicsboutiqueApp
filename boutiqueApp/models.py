@@ -38,8 +38,15 @@ class Customer(models.Model):
     def __str__(self):
         return str(self.user)
 
+class Designer(models.Model):
+    designerName = models.CharField(max_length=200, null=True)
+    email = models.EmailField(max_length=254)
+
+    def __str__(self):
+        return str(self.designerName)
+
 class Product(models.Model):
-    designer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    designer = models.OneToOneField(Designer, on_delete=models.CASCADE, blank=True, null=True)
     productName = models.CharField(max_length=200, null=True, blank=True)
     price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
