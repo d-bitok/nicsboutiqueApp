@@ -48,7 +48,7 @@ class Product(models.Model):
     description = models.CharField(max_length=300, null=True)
 
     def __str__(self):
-        return str(self.productName)
+        return str(self.designer)
     
     def get_absolute_url(self):
             return reverse('Product-Detail', kwargs={"pk": self.pk})
