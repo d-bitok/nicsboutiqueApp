@@ -186,7 +186,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['productName', 'price', 'digital', 'date_added', 'image', 'description', 'designer']
+    fields = ['productName', 'price', 'digital', 'image', 'description', 'designer']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
@@ -194,7 +194,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    fields = ['productName', 'price', 'digital', 'date_added', 'image', 'description', 'designer']
+    fields = ['productName', 'price', 'digital', 'image', 'description', 'designer']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
