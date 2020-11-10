@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
                 #('date_added', models.DateTimeField(default=django.utils.timezone.now)),
                 ('image', models.ImageField(default='knot.jpeg', upload_to='market')),
                 #('description', models.CharField(max_length=300, null=True)),
-                ('designer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                #('designer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
