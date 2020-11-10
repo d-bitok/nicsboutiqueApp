@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.http import request
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
 import json
 import datetime
@@ -195,7 +195,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             return super().form_valid(form)
         except IntegrityError:
             pass
-        
+        return redirect('Product-Detail')
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
