@@ -10,7 +10,8 @@ def create_product(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Product)
 def save_product(sender, instance, **kwargs):
-    instance.designer.save()
+    Product.objects.create(user=instance)
+    instance.user.save()
 
 @receiver(post_save, sender=Product)
 def customer(sender, instance, created, **kwargs):
