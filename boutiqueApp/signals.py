@@ -8,9 +8,8 @@ def create_product(sender, instance, created, **kwargs):
     if created:
         Product.objects.create(user=instance)
 
-@receiver(post_save, sender=Product)
+@receiver(post_save, sender=User)
 def save_product(sender, instance, **kwargs):
-    Product.objects.create(user=instance)
     instance.user.save()
 
 @receiver(post_save, sender=Product)
