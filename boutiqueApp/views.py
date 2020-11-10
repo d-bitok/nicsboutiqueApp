@@ -195,7 +195,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             return super().form_valid(form)
         except IntegrityError:
             pass
-        return redirect('Product-Detail')
+        return redirect('Product-Home')
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
