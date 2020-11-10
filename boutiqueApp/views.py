@@ -21,7 +21,7 @@ def home(request):
 
 @login_required
 def store(request):
-    if request == 'GET':
+    if request.method == 'GET':
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
@@ -90,8 +90,59 @@ def store(request):
     return render(request, 'boutiqueApp/store.html', context)
 
 def boutique(request):
-    data = cartData(request)
-    cartItems = data['cartItems']
+    if request.method == 'GET':
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+
+    try:
+        cart = json.loads(request.COOKIES['cart'])
+    except:
+        cart = {}
+
+    print('CART:', cart)
+    items = []
+    order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+    cartItems = order['get_cart_items']
+
+    for i in cart:
+        try:
+            cartItems += cart[i]["quantity"]
+
+            product = Product.objects.get(id=i)
+            total = (product.price * cart[i]["quantity"])
+
+            order['get_cart_total'] += total
+            order['get_cart_items'] += cart[i]["quantity"]
+
+            item = {
+                'product':{
+                    'id':product.id,
+                    'productName':product.productName,
+                    'price':product.price,
+                    'designer':product.designer,
+                    'price':product.price,
+                    'digital':product.digital,
+                    'date_added':product.date_added,
+                    'imageURL':product.imageURL,
+                    'description':product.description,
+                    'designer':product.designer
+                    },
+                'quantity':cart[i]["quantity"],
+                'get_total':total,
+                }
+            items.append(item)
+
+            if product.digital == False:
+                order['shipping'] = True
+        except:
+            pass
 
     products = Product.objects.all().order_by('-date_added')
     page = request.GET.get('page', 1)
@@ -135,15 +186,15 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['productName', 'image', 'price', 'digital', 'description', 'designer']
+    fields = ['productName', 'price', 'digital', 'date_added', 'image', 'description', 'designer']
 
-    #def form_valid(self, form):
-    #    form.instance.designer = self.request.user
-    #    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.designer = self.request.user
+        return super().form_valid(form)
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    fields = ['productName', 'image', 'price', 'digital', 'description', 'designer']
+    fields = ['productName', 'price', 'digital', 'date_added', 'image', 'description', 'designer']
 
     def form_valid(self, form):
         form.instance.designer = self.request.user
