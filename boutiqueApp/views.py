@@ -21,7 +21,7 @@ def home(request):
 
 @login_required
 def store(request):
-    if request.method == 'GET':
+    if request == 'GET':
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
@@ -90,7 +90,7 @@ def store(request):
     return render(request, 'boutiqueApp/store.html', context)
 
 def boutique(request):
-    if request.method == 'GET':
+    if request == 'GET':
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
