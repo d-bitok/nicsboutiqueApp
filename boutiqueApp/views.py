@@ -188,22 +188,19 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['productName', 'price', 'digital', 'image', 'description']
+    fields = ['designer', 'productName', 'price', 'digital', 'image', 'description']
 
-    def form_valid(self, form):
-        try:
-            form.instance.designer = self.request.user
-        except IntegrityError:
-            pass
-        return super().form_valid(form)
+    #def form_valid(form):
+        #form.instance.user = self.request.user
+        #return super().form_valid(form)
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    fields = ['productName', 'price', 'digital', 'image', 'description']
+    fields = ['designer', 'productName', 'price', 'digital', 'image', 'description']
 
-    def form_valid(self, form):
-        form.instance.designer = self.request.user
-        return super().form_valid(form)
+    #def form_valid(form):
+        #form.instance.user = self.request.user
+        #return super().form_valid(form)
 
     def test_func(self):
         product = self.get_object()

@@ -46,7 +46,7 @@ class Designer(models.Model):
         return str(self.designerName)
 
 class Product(models.Model):
-    designer = models.OneToOneField(Designer, on_delete=models.CASCADE, blank=True, null=True)
+    designer = models.ForeignKey(Designer, on_delete=models.CASCADE, blank=True, null=True)
     productName = models.CharField(max_length=200, null=True, blank=True)
     price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
