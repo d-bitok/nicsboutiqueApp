@@ -10,7 +10,7 @@ def create_product(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_product(sender, instance, **kwargs):
-    instance.user.save()
+    instance.name.save()
 
 @receiver(post_save, sender=Product)
 def customer(sender, instance, created, **kwargs):
