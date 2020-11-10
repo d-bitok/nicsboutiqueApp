@@ -3,7 +3,6 @@ from .models import *
 
 admin.site.register(Post)
 admin.site.register(Customer)
-admin.site.register(Designer)
 admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(OrderItem)

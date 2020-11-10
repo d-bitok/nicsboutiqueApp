@@ -21,7 +21,6 @@ def home(request):
     }
     return render(request, 'boutiqueApp/home.html', context)
 
-@login_required
 def store(request):
     if request == 'GET':
         customer = request.user.customer
@@ -190,17 +189,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     fields = ['designer', 'productName', 'price', 'digital', 'image', 'description']
 
-    #def form_valid(form):
-        #form.instance.user = self.request.user
-        #return super().form_valid(form)
+    def form_valid(self, form):
+        try:
+            form.instance.user = self.request.user
+        except IntegrityError:
+            pass
+        return super().form_valid(form)
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     fields = ['designer', 'productName', 'price', 'digital', 'image', 'description']
 
-    #def form_valid(form):
-        #form.instance.user = self.request.user
-        #return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.designer = self.request.user
+        return super().form_valid(form)
 
     def test_func(self):
         product = self.get_object()
