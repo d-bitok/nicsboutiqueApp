@@ -129,7 +129,7 @@ def boutique(request):
                     'designer':product.designer,
                     'price':product.price,
                     'digital':product.digital,
-                    'date_added':product.date_added,
+                    #'date_added':product.date_added,
                     'imageURL':product.imageURL,
                     'description':product.description,
                     'designer':product.designer
