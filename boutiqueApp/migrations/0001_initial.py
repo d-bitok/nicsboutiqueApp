@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             name='Product',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('productName', models.CharField(blank=True, max_length=200, null=True)),
+                #('productName', models.CharField(blank=True, max_length=200, null=True)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=7)),
                 ('digital', models.BooleanField(blank=True, default=False, null=True)),
                 ('date_added', models.DateTimeField(default=django.utils.timezone.now)),
