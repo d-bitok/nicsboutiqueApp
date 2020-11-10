@@ -51,7 +51,8 @@ class Product(models.Model):
         return str(self.productName)
     
     def get_absolute_url(self):
-            return reverse('Product-Detail', kwargs={"pk": self.pk})
+            #return reverse('Product-Detail', kwargs={"pk": self.pk})
+            return reverse('Product-Detail')
 
     @property
     def imageURL(self):
