@@ -8,6 +8,7 @@ from PIL import Image
 from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.views.generic.list import BaseListView
 
 @receiver(post_save, sender=User)
 def customer(sender, instance, created, **kwargs):
@@ -40,7 +41,7 @@ class Customer(models.Model):
 
 class Product(models.Model):
     designer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    productName = models.CharField(max_length=200)
+    productName = models.CharField(max_length=200, null=True, blank=True)
     price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
