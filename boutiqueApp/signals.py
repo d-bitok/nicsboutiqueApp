@@ -11,7 +11,7 @@ def create_product(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_product(sender, instance, **kwargs):
     try:
-        instance.name.save()
+        instance.username.save()
     except TypeError:
         Product.objects.create(user=instance)
 
