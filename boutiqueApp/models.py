@@ -40,7 +40,7 @@ class Product(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.productName
+        return str(self.productName)
     
     def get_absolute_url(self):
             return reverse('Product-Detail', kwargs={"pk": self.pk})
