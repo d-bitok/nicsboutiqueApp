@@ -20,7 +20,8 @@ def home(request):
     return render(request, 'boutiqueApp/home.html', context)
 
 def store(request):
-    if request == 'GET':
+    #if request == 'GET':
+    if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
@@ -86,7 +87,8 @@ def store(request):
     return render(request, 'boutiqueApp/store.html', context)
 
 def boutique(request):
-    if request == 'GET':
+    #if request == 'GET':
+    if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
