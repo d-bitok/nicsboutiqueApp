@@ -30,8 +30,6 @@ def cookieCart(request):
                     'id':product.id,
                     'productName':product.productName,
                     'price':product.price,
-                    'seller':product.seller,
-                    'price':product.price,
                     'digital':product.digital,
                     'date_added':product.date_added,
                     'imageURL':product.imageURL,

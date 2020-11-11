@@ -11,8 +11,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
 
 def home(request):
     context = {
@@ -57,8 +55,6 @@ def store(request):
                 'product':{
                     'id':product.id,
                     'productName':product.productName,
-                    'price':product.price,
-                    'seller':product.seller,
                     'price':product.price,
                     'digital':product.digital,
                     #'date_added':product.date_added,
@@ -125,8 +121,6 @@ def boutique(request):
                 'product':{
                     'id':product.id,
                     'productName':product.productName,
-                    'price':product.price,
-                    'seller':product.seller,
                     'price':product.price,
                     'digital':product.digital,
                     #'date_added':product.date_added,
@@ -202,7 +196,7 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         product = self.get_object()
-        if self.request.user == product.seller:
+        if self.request.user == Seller.user:
             return True
         return False
 
