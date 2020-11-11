@@ -1,4 +1,5 @@
 #from posix import times_result
+from os import name
 from django.db import models
 from django.db.models import base
 from django.utils import timezone
@@ -48,7 +49,7 @@ class Product(models.Model):
     description = models.CharField(max_length=300, null=True)
 
     def __str__(self):
-        return str(self.designer)
+        return str(self.productName)
     
     def get_absolute_url(self):
             return reverse('Product-Detail', kwargs={"pk": self.pk})
