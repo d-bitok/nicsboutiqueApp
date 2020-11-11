@@ -193,7 +193,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         try:
             form.instance.designer = self.request.user
         except IntegrityError:
-            pass
+            Product.designer.set(id = id+1)
         return super().form_valid(form)
         #return redirect('Boutique-Home')
     
