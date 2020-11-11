@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gdstorage',
 ]
 
 MIDDLEWARE = [
@@ -144,7 +143,3 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 django_heroku.settings(locals())
-
-
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = None
-GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = os.pardir.join(MEDIA_ROOT, 'media')

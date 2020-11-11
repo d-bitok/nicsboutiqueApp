@@ -10,9 +10,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.views.generic.list import BaseListView
-from gdstorage.storage import GoogleDriveStorage
-
-gd_storage = GoogleDriveStorage()
 
 @receiver(post_save, sender=User)
 def customer(sender, instance, created, **kwargs):
@@ -39,7 +36,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='market', default='knot.jpeg', storage=gd_storage)
+    image = models.ImageField(upload_to='market', default='knot.jpeg')
     description = models.TextField()
 
     def __str__(self):
