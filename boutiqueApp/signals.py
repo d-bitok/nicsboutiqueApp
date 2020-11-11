@@ -12,6 +12,6 @@ def create_product(sender, instance, created, **kwargs):
 def save_product(sender, instance, **kwargs):
     try:
         instance.product.save()
-    except:
+    except TypeError:
         Product.objects.create(user=instance)
 
