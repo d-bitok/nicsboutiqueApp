@@ -30,23 +30,14 @@ class Post(models.Model):
 
     def get_absolute_url(self):
             return reverse('Post-Detail', kwargs={"pk": self.pk})
-        
-class Customer(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null=True)
-    email = models.EmailField(max_length=254)
-
-    def __str__(self):
-        return str(self.user)
 
 class Product(models.Model):
-    designer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    productName = models.CharField(max_length=200, null=True, blank=True)
+    productName = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=7,decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=True)
     date_added = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='market', default='knot.jpeg')
-    description = models.CharField(max_length=300, null=True)
+    description = models.TextField()
 
     def __str__(self):
         return str(self.productName)
@@ -61,7 +52,23 @@ class Product(models.Model):
         except:
             url = ''
         return url
-   
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True)
+    email = models.EmailField(max_length=254)
+
+    def __str__(self):
+        return str(self.user)
+
+class Seller(models.Model):
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True)
+    email = models.EmailField(max_length=254)
+
+    def __str__(self):
+        return str(self.user)
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)

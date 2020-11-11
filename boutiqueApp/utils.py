@@ -30,13 +30,12 @@ def cookieCart(request):
                     'id':product.id,
                     'productName':product.productName,
                     'price':product.price,
-                    'designer':product.designer,
+                    'seller':product.seller,
                     'price':product.price,
                     'digital':product.digital,
                     'date_added':product.date_added,
                     'imageURL':product.imageURL,
-                    'description':product.description,
-                    'designer':product.designer
+                    'description':product.description
                     },
                 'quantity':cart[i]["quantity"],
                 'get_total':total,

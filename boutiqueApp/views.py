@@ -55,16 +55,15 @@ def store(request):
 
             item = {
                 'product':{
-                    #'id':product.id,
+                    'id':product.id,
                     'productName':product.productName,
                     'price':product.price,
-                    'designer':product.designer,
+                    'seller':product.seller,
                     'price':product.price,
                     'digital':product.digital,
                     #'date_added':product.date_added,
                     'imageURL':product.imageURL,
-                    'description':product.description,
-                    'designer':product.designer
+                    'description':product.description
                     },
                 'quantity':cart[i]["quantity"],
                 'get_total':total,
@@ -124,16 +123,15 @@ def boutique(request):
 
             item = {
                 'product':{
-                    #'id':product.id,
+                    'id':product.id,
                     'productName':product.productName,
                     'price':product.price,
-                    'designer':product.designer,
+                    'seller':product.seller,
                     'price':product.price,
                     'digital':product.digital,
                     #'date_added':product.date_added,
                     'imageURL':product.imageURL,
-                    'description':product.description,
-                    'designer':product.designer
+                    'description':product.description
                     },
                 'quantity':cart[i]["quantity"],
                 'get_total':total,
@@ -190,24 +188,21 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     fields = ['productName', 'price', 'digital', 'image', 'description']
 
     def form_valid(self, form):
-        try:
-            form.instance.designer = self.request.user
-        except IntegrityError:
-            Product.designer.set(id = id+1)
+        form.instance.seller = self.request.user
         return super().form_valid(form)
-        #return redirect('Boutique-Home')
+        
     
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     fields = ['productName', 'price', 'digital', 'image', 'description']
 
     def form_valid(self, form):
-        form.instance.designer = self.request.user
+        form.instance.seller = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
         product = self.get_object()
-        if self.request.user == product.designer:
+        if self.request.user == product.seller:
             return True
         return False
 
@@ -231,7 +226,7 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         product = self.get_object()
-        if self.request.user == product.designer:
+        if self.request.user == product.seller:
             return True
         return False
 
