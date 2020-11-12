@@ -54,7 +54,7 @@
         </nav>
     </div>
     <h4 style="display: inline-block; float: right;"><strong> {{ object.price|floatformat:2 }}/=</strong></h4>
-    {% if user.seller.user == user %}
+    {% if object.sller.user %}
     <div>
         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'Product-Update' object.id %}">Update</a>
         <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'Product-Delete' object.id %}">Delete</a>
